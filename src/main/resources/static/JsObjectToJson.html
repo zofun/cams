@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="parset()">转化</button>
+</body>
+<script src="jquery-2.1.4/jquery.js"></script>
+<script>
+
+    function parset(){
+        var s=[
+            {
+                week:4,
+                weekDays:[
+                    {
+                        jc:1,
+                        day:1
+                    },
+                    {
+                        jc:2,
+                        day:1
+                    }
+
+
+                ]
+            },
+            {
+                week:5,
+                weekDays:[
+                    {
+                        jc:1,
+                        day:1
+                    },
+                    {
+                        jc:2,
+                        day:1
+                    }
+                ]
+            },
+            {
+                week:6,
+                weekDays:[
+                    {
+                        jc:1,
+                        day:1
+                    },
+                    {
+                        jc:2,
+                        day:1
+                    }
+                ]
+            }
+        ];
+        console.log(JSON.stringify(s));
+        var p=[5,6,7,8];
+        console.log(JSON.stringify(p));
+
+    }
+
+</script>
+</html>

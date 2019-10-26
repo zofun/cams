@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shente.cams.mapper.ResultMapper">
+    <insert id="insert" parameterType="tresult" useGeneratedKeys="true" keyProperty="rId" keyColumn="r_id">
+       insert into result (course_id,account,result_data,result_type)
+       values (#{courseId},#{account},#{resultData},#{resultType})
+    </insert>
+
+    <select id="queryResultDataByCourseId" resultType="string">
+        select result_data from result where course_id=#{courseId}
+        and result_type=#{type}
+    </select>
+
+</mapper>

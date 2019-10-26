@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shente.cams.mapper.CourseMapper">
+    <select id="queryCourseById" resultType="course" >
+        select * from course where c_id=#{id}
+    </select>
+
+    <update id="updateCourseState">
+        update course set state=#{newstate} where c_id=#{id}
+    </update>
+
+    <insert id="insert" parameterType="course">
+         insert into course (`name`,weeks,hours,start_monday,state,user_id)
+         values (#{name},#{weeks},#{hours},#{startMonday},#{state},#{userId})
+    </insert>
+    
+    <select id="queryCourseByUserIdAndName" resultType="course">
+        select * from course where `name`=#{name} and user_id=#{id}
+    </select>
+
+</mapper>

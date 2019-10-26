@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: cams
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/cams?useSSL=FALSE&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+
+# mybatis配置
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml # 映射文件位置
+  configuration:
+   # 下划线转驼峰命名法
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.shente.cams.pojo
+
+server:
+  port: 8080
+
+
+
+
+# 分页助手
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
