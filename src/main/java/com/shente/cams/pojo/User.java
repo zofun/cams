@@ -1,19 +1,18 @@
 package com.shente.cams.pojo;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class User {
 
     private Integer uId;
+    @JsonProperty("username")
     private String account;
     private String password;
 
