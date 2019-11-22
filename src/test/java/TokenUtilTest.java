@@ -19,13 +19,13 @@ public class TokenUtilTest {
 
     @Test
     public void testCreate() throws Exception {
-        String tokenStr=TokenUtils.create(4,"admin",60);
+        String tokenStr=TokenUtils.create(1,"admin",3600);
         System.out.println(tokenStr);
     }
 
     @Test
     public void testDecode() throws Exception {
-        System.out.println(DesUtil.decrypt("50uiC11FaVfRfsqhiYK5LyljkFJE1854eZRrTqdChpQN571OJ6pNhFBvOpjjNTmP","swpuKerno"));
+        System.out.println(DesUtil.decrypt("q5C642yZAfzRfsqhiYK5LxRtf6mLo41rpfKSjQFHWO71OWENUaJ9YNa05msOYZvaap2aLpyi792eixlNOtSt3Nph+kDBW6NH","swpuKerno"));
     }
 
     @Test

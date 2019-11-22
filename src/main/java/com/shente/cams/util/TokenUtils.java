@@ -56,6 +56,7 @@ public class TokenUtils {
      */
     public static Boolean isValid(String tokenStr){
         try{
+            tokenStr=tokenStr.replace(" ","");
             String orignJsonStr = decode(tokenStr);
             userNode = objectMapper.readTree(orignJsonStr);
             JsonNode overtime = userNode.get("overtime");

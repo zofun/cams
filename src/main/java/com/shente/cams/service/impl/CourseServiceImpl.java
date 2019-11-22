@@ -25,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void updateCourseState(Course course) throws IOException {
         courseMapper.updateCourseState(course.getCId(),course.getState());
-        if(1==course.getState()){
+        if(0==course.getState()){
             //如果课程关闭了，就开始排课
 
             scheduleService.coursesArranging(course.getCId());
@@ -39,5 +39,20 @@ public class CourseServiceImpl implements CourseService {
             throw new RuntimeException("course already exist");
         }
         courseMapper.insert(course);
+    }
+
+    @Override
+    public int deleteCourse(Integer id) {
+        return courseMapper.deleteById(id);
+    }
+
+    @Override
+    public List<Course> checkCourse(Integer id) {
+        return courseMapper.selectCoursesByUserId(id);
+    }
+
+    @Override
+    public Course selectCourse(Integer cId) {
+        return courseMapper.selectCourseById(cId);
     }
 }

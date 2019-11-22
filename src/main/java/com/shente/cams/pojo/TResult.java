@@ -1,6 +1,6 @@
 package com.shente.cams.pojo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @Getter
@@ -8,16 +8,12 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TResult {
 
-
     private Integer rId;
-
-    @JsonProperty("course_id")
     private Integer courseId;
     private String account;
-
-    @JsonProperty("result_data")
     private String resultData;
     private Character resultType;
 }

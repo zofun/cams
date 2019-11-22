@@ -59,7 +59,9 @@ public class UserController {
         }
         //登陆成功
         res.clear();
-        res.put("token", TokenUtils.create(originUser.getUId(),originUser.getAccount(),60));
+        String s = TokenUtils.create(originUser.getUId(), originUser.getAccount(), 3600);
+        System.out.println(s);
+        res.put("token", s);
         return Result.baseSuccess(res);
     }
 }

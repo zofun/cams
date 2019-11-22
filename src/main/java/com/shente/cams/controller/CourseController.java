@@ -3,13 +3,12 @@ package com.shente.cams.controller;
 import com.shente.cams.dto.Result;
 import com.shente.cams.pojo.Course;
 import com.shente.cams.service.CourseService;
+import com.shente.cams.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("course")
@@ -25,9 +24,9 @@ public class CourseController {
      * @param course
      * @return
      */
-    @RequestMapping(value = "course",method = RequestMethod.PUT)
+    @PutMapping(value = "course")
     public Result changeCourseStatus(@RequestBody Course course){
-
+        System.out.println(course);
         try {
             courseService.updateCourseState(course);
             return new Result().success(null);
@@ -44,7 +43,10 @@ public class CourseController {
      * @return
      */
     @RequestMapping(value = "course",method = RequestMethod.POST)
-    public Result addCourse(@RequestBody Course course){
+    public Result addCourse(@RequestBody Course course, @RequestHeader("auto_token")String token){
+        if(TokenUtils.isValid(token)){
+            course.setUserId(TokenUtils.getUserId());
+        }
         try{
             courseService.addCourse(course);
         }catch (Exception e){
@@ -55,15 +57,37 @@ public class CourseController {
         return new Result().success("OK");
     }
 
+    /**
+     * 删除课程
+     * @param course
+     */
+    @DeleteMapping(value = "course")
+    public Object deleteCourse(@RequestBody Course course){
+        courseService.deleteCourse(course.getCId());
+        return Result.baseSuccess();
+    }
 
     /**
      * 用户获取已创建的课程列表
      * @return
      */
-    @RequestMapping(value = "course",method = RequestMethod.GET)
-    public Result getCourseList(){
+    @GetMapping(value = "course")
+    public Object getCourseList(@RequestHeader("auto_token")String token){
+        if(TokenUtils.isValid(token)){
+            List<Course> course_list = courseService.checkCourse(TokenUtils.getUserId());
+            return Result.baseSuccess(course_list);
+        }
+        return Result.baseSuccess();
+    }
 
-
-        return new Result();
+    /**
+     * 获取指定主键的课程信息
+     * @param id
+     */
+    @GetMapping(value = "course/{course_id}")
+    public Object getCourse(@PathVariable("course_id") Integer id){
+        System.out.println(id);
+        Course course = courseService.selectCourse(id);
+        return Result.baseSuccess(course);
     }
 }
