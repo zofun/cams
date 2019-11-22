@@ -26,7 +26,6 @@ public class CourseController {
      */
     @PutMapping(value = "course")
     public Result changeCourseStatus(@RequestBody Course course){
-        System.out.println(course);
         try {
             courseService.updateCourseState(course);
             return new Result().success(null);
@@ -86,7 +85,6 @@ public class CourseController {
      */
     @GetMapping(value = "course/{course_id}")
     public Object getCourse(@PathVariable("course_id") Integer id){
-        System.out.println(id);
         Course course = courseService.selectCourse(id);
         return Result.baseSuccess(course);
     }

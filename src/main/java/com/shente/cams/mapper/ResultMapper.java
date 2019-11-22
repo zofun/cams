@@ -1,8 +1,7 @@
 package com.shente.cams.mapper;
 
 import com.shente.cams.pojo.TResult;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +12,8 @@ public interface ResultMapper {
 
     int insert(TResult result);
 
+    @Select("select r_id,result_data from result where account=#{account} and course_id =#{courseId}")
+    TResult selectResData(Integer courseId,String account);
     /**
      * 根据课程id获取结果
      * @param courseId
@@ -20,4 +21,16 @@ public interface ResultMapper {
      * @return
      */
     List<String> queryResultDataByCourseId(@Param("courseId") int courseId,@Param("type") char type);
+
+    /**
+     * 更新选课结果
+     */
+    @Update("update result set result_data=#{resultData} where r_id=#{rId}")
+    int updateResDataById(TResult tResult);
+
+    /**
+     * 查询结果数据的主键
+     */
+    @Select("select r_id from result where account=#{account} and course_id =#{courseId}")
+    int selectRidByAccountAndCourseId(TResult result);
 }
