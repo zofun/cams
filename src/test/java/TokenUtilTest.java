@@ -19,7 +19,7 @@ public class TokenUtilTest {
 
     @Test
     public void testCreate() throws Exception {
-        String tokenStr=TokenUtils.create(1,"admin",3600);
+        String tokenStr=TokenUtils.create(1,"sugar",3600000);
         System.out.println(tokenStr);
     }
 
