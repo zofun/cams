@@ -47,6 +47,7 @@ public class CourseController {
             course.setUserId(TokenUtils.getUserId());
         }
         try{
+            course.setState(1);
             courseService.addCourse(course);
         }catch (Exception e){
             //处理已经新建过课程的异常

@@ -7,8 +7,8 @@ spring:
       enabled: true
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3306/cams?useSSL=FALSE&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    password: a123456
+    url: jdbc:mysql://localhost:3306/auto_course?useSSL=FALSE&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 

@@ -8,12 +8,15 @@ package com.shente.cams.controller;
 import com.shente.cams.dto.Result;
 import com.shente.cams.pojo.User;
 import com.shente.cams.service.UserService;
+import com.shente.cams.util.LocalCache;
 import com.shente.cams.util.TokenUtils;
+import org.apache.shiro.codec.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sun.misc.BASE64Encoder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,8 +63,11 @@ public class UserController {
         //登陆成功
         res.clear();
         String s = TokenUtils.create(originUser.getUId(), originUser.getAccount(), 3600);
-        System.out.println(s);
-        res.put("token", s);
+        s=s.replace("\n","");
+        String key=s.substring(s.length()-20,s.length()-5);
+        LocalCache localCache=new LocalCache();
+        localCache.putValue(key,s,3600);
+        res.put("token", key);
         return Result.baseSuccess(res);
     }
 }
