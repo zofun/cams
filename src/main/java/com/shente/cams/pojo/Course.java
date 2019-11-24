@@ -24,7 +24,6 @@ public class Course {
     private Integer hours;
 
     @JsonProperty("start_monday")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date startMonday;
     private String name;
     private Integer state;

@@ -70,7 +70,11 @@ public class CiphertextController {
     @GetMapping("ciphertext/{course_id}")
     public Object getKey(@PathVariable("course_id") Integer courseId){
         map.clear();
-        map.put("ciphertext",sercetService.checkKey(courseId));
+        String key=sercetService.checkKey(courseId);
+        if(key==null|| key.trim().equals("")){
+            return Result.baseError(3001,"not exist ciphertext");
+        }
+        map.put("ciphertext",key);
         return Result.baseSuccess(map);
     }
 
@@ -80,7 +84,11 @@ public class CiphertextController {
     @GetMapping("ciphertext")
     public Object getCourseIdByKey(String text){
         map.clear();
-        map.put("courseId",sercetService.checkCourseId(text));
+        Integer courseId = sercetService.checkCourseId(text);
+        if(courseId==null){
+            return Result.baseError(3002,"ciphertext not exist");
+        }
+        map.put("courseId",courseId);
         return Result.baseSuccess(map);
     }
 
