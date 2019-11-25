@@ -6,9 +6,10 @@ spring:
       charset: utf-8
       enabled: true
   datasource:
-    username: root
+    username: auto_course
     password: a123456
-    url: jdbc:mysql://localhost:3306/auto_course?useSSL=FALSE&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://sugarat.top:3306/auto_course?useSSL=FALSE&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+#    url: jdbc:mysql://localhost:3306/auto_course?useSSL=FALSE&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   jackson:
