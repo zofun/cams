@@ -32,7 +32,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public String coursesArranging(Integer courseId) throws IOException {
-        List<String> ScheduleResult = resultMapper.queryResultDataByCourseId(courseId, 'r');
+        List<String> ScheduleResult = resultMapper.queryResultDataByCourseId(courseId, 'T');
         if (!ScheduleResult.isEmpty()) {
             //已经有结果就直接使用
             return ScheduleResult.get(0);
@@ -50,6 +50,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         });
         //每周的排课量
         int timesPreWeek = times / weeks.size();
+        if(timesPreWeek==1){
+            //一周至少应该有两节课
+            timesPreWeek=2;
+        }
 
         //获取学生的统计信息
         List<String> list = resultMapper.queryResultDataByCourseId(courseId, 'S');
@@ -91,16 +95,21 @@ public class ScheduleServiceImpl implements ScheduleService {
                 //当前周缺失学生统计，无法进行排课
                 continue;
             }
-            PlanOfOneWeek plan;
-            if (times - timesPreWeek > 0) {
-                plan = ScheduleUtils.ScheduleOneWeek(Integer.parseInt(week), arr, timesPreWeek, stuNum);
-                times -= timesPreWeek;
-            } else {
-                //余下的课时
-                plan = ScheduleUtils.ScheduleOneWeek(Integer.parseInt(week), arr, times, stuNum);
-                times = 0;
+            if(times==0){
+                break;
             }
+            PlanOfOneWeek plan;
+            if(times<2){
+                //剩下一节的情况
+                plan = ScheduleUtils.ScheduleOneWeek(Integer.parseInt(week), arr, times, stuNum,true);
+                times -=plan.getSize();
+            }else{
+                plan = ScheduleUtils.ScheduleOneWeek(Integer.parseInt(week), arr, timesPreWeek, stuNum,false);
+                times -= plan.getSize();
+            }
+
             result.add(plan);
+            plan=null;
         }
         if (times != 0) {
             throw new RuntimeException("该课程排不满");

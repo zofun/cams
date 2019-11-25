@@ -32,6 +32,9 @@ public class CourseController {
         }catch (IOException e){
             e.printStackTrace();
             return new Result().fail("排课出错，课程关闭失败",500);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return new Result().fail(e.getMessage(),500);
         }
     }
 

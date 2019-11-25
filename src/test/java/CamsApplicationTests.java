@@ -1,7 +1,12 @@
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shente.cams.CamsApplication;
+import com.shente.cams.controller.CourseController;
+import com.shente.cams.controller.CourseResController;
+import com.shente.cams.dto.Result;
 import com.shente.cams.mapper.ResultMapper;
+import com.shente.cams.pojo.Course;
 import com.shente.cams.service.ScheduleService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +43,20 @@ class CamsApplicationTests {
         for (String l:list){
             System.out.println(l);
         }
+    }
+
+    @Autowired
+    private CourseController courseController;
+
+    @Test
+    public void testChangeCourseStatus() throws JsonProcessingException {
+        final ObjectMapper mapper = new ObjectMapper();
+        Course course=new Course();
+        course.setCId(15);
+        course.setState(0);
+        Result result = courseController.changeCourseStatus(course);
+
+        System.out.println(mapper.writeValueAsString(result));
     }
 
 }

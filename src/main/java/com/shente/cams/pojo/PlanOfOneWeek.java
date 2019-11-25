@@ -1,5 +1,6 @@
 package com.shente.cams.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import java.util.*;
 
 /**
+ * @author TCW
  * 特定一周的排课方案
  */
 @Getter
@@ -18,6 +20,7 @@ public class PlanOfOneWeek {
 
     private int week;
     private List<Item> weekDays;
+
     public PlanOfOneWeek(int week){
         this.week=week;
         weekDays=new LinkedList<Item>();
@@ -31,26 +34,38 @@ public class PlanOfOneWeek {
 
     }
 
-
-    public static void main(String[] args) throws JsonProcessingException {
-        PlanOfOneWeek plan=new PlanOfOneWeek(1);
-        plan.setStudytime(1,1);
-        plan.setStudytime(1,2);
-        PlanOfOneWeek planB=new PlanOfOneWeek(2);
-        planB.setStudytime(1,1);
-        planB.setStudytime(1,2);
-        List<PlanOfOneWeek> list=new LinkedList<>();
-        list.add(plan);
-        list.add(planB);
-        ObjectMapper mapper=new ObjectMapper();
-        System.out.println(mapper.writeValueAsString(list));
+    /**
+     * 获取当前周所排的课程节数
+     * @return
+     */
+    @JsonIgnore
+    public int getSize(){
+        return weekDays.size();
     }
 }
 
-@Getter
+
 @Setter
 @AllArgsConstructor
 class Item{
     private int jc;
     private int day;
+
+    /**
+     * 因为前端的json串中值为string，
+     * 这个地方转一下类型，确保生成的json格式一致
+     * @return
+     */
+    public String getJc() {
+        return String.valueOf(jc);
+    }
+
+    /**
+     * 因为前端的json串中值为string，
+     * 这个地方转一下类型，确保生成的json格式一致
+     * @return
+     */
+    public String getDay() {
+        return String.valueOf(day);
+    }
 }
