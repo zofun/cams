@@ -59,7 +59,6 @@ public class TokenUtils {
             LocalCache localCache=new LocalCache();
             tokenStr= (String) localCache.getValue(tokenStr);
             tokenStr=tokenStr.replace(" ","");
-            System.out.println(tokenStr);
             String orignJsonStr = decode(tokenStr);
             userNode = objectMapper.readTree(orignJsonStr);
             JsonNode overtime = userNode.get("overtime");

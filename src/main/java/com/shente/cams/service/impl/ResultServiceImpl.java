@@ -6,6 +6,8 @@ import com.shente.cams.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author sugar
  * 2019/11/22
@@ -38,5 +40,10 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public TResult getResultByAccount(Integer courseId,String account) {
         return resultMapper.selectResData(courseId, account);
+    }
+
+    @Override
+    public List<TResult> getPeopleData(Integer courseId) {
+        return resultMapper.selectResultListByCourseId(courseId);
     }
 }

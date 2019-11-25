@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -73,5 +74,11 @@ public class ResultController {
     public Object updateResult(@RequestBody TResult tResult){
         resultService.updateResult(tResult);
         return Result.baseSuccess();
+    }
+
+    @GetMapping("res/{course_id}")
+    public Object getResultList(@PathVariable("course_id") Integer courseId){
+        List<TResult> resultList = resultService.getPeopleData(courseId);
+        return Result.baseSuccess(resultList);
     }
 }

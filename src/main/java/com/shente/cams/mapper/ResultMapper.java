@@ -33,4 +33,7 @@ public interface ResultMapper {
      */
     @Select("select r_id from result where account=#{account} and course_id =#{courseId}")
     int selectRidByAccountAndCourseId(TResult result);
+
+    @Select("select r_id,course_id,account,result_data from result where course_id=#{courseId} and result_type= 'S'")
+    List<TResult> selectResultListByCourseId(Integer courseId);
 }

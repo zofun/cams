@@ -4,6 +4,8 @@ import com.shente.cams.pojo.TResult;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author sugar
  * 2019/11/22
@@ -17,4 +19,6 @@ public interface ResultService {
     int updateResult(TResult tResult);
 
     TResult getResultByAccount(Integer courseId,String account);
+
+    List<TResult> getPeopleData(Integer courseId);
 }
