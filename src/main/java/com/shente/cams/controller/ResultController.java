@@ -60,6 +60,7 @@ public class ResultController {
      */
     @GetMapping("res/{course_id}/{account}")
     public Object checkResult(@PathVariable("course_id") Integer courseId,@PathVariable("account") String account){
+        System.out.println(account);
         TResult result = resultService.getResultByAccount(courseId, account);
         if(result==null){
             return Result.baseError(4001,"data not exist");

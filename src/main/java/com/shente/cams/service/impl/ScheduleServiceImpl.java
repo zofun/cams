@@ -34,8 +34,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     public String coursesArranging(Integer courseId) throws IOException {
         List<String> ScheduleResult = resultMapper.queryResultDataByCourseId(courseId, 'T');
         if (!ScheduleResult.isEmpty()) {
-            //已经有结果就直接使用
-            return ScheduleResult.get(0);
+            //如果有数据就删除之前的排课结果。
+            resultMapper.deleteResult(courseId,"T");
         }
 
 
@@ -49,7 +49,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<String> weeks = mapper.readValue(weeksjson, new TypeReference<List<String>>() {
         });
         //每周的排课量
-        int timesPreWeek = times / weeks.size();
+        int timesPreWeek = (int)Math.ceil(times*1.0 / weeks.size());
         if(timesPreWeek==1){
             //一周至少应该有两节课
             timesPreWeek=2;

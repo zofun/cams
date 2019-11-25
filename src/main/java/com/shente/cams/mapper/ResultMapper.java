@@ -36,4 +36,13 @@ public interface ResultMapper {
 
     @Select("select r_id,course_id,account,result_data from result where course_id=#{courseId} and result_type= 'S'")
     List<TResult> selectResultListByCourseId(Integer courseId);
+
+
+    /**
+     * 删除指定排课
+     * @param courseId
+     * @param type
+     */
+    @Delete("delete from result where course_id=#{courseId} and result_type=#{type}")
+    void deleteResult(@Param("courseId") int courseId,@Param("type") String type);
 }

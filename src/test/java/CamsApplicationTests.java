@@ -59,4 +59,11 @@ class CamsApplicationTests {
         System.out.println(mapper.writeValueAsString(result));
     }
 
+
+
+    @Test
+    public void deleteResultTest(){
+        resultMapper.deleteResult(2,"T");
+    }
+
 }
