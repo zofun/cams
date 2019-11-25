@@ -33,7 +33,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public String coursesArranging(Integer courseId) throws IOException {
         List<String> ScheduleResult = resultMapper.queryResultDataByCourseId(courseId, 'r');
-        if (ScheduleResult.size() != 0) {
+        if (!ScheduleResult.isEmpty()) {
             //已经有结果就直接使用
             return ScheduleResult.get(0);
         }
@@ -52,7 +52,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         int timesPreWeek = times / weeks.size();
 
         //获取学生的统计信息
-        List<String> list = resultMapper.queryResultDataByCourseId(courseId, 't');
+        List<String> list = resultMapper.queryResultDataByCourseId(courseId, 'S');
 
         //每位学生的空闲时间信息
         List<FreeTimeInfo> infos = new ArrayList<>(list.size());
@@ -96,25 +96,26 @@ public class ScheduleServiceImpl implements ScheduleService {
                 plan = ScheduleUtils.ScheduleOneWeek(Integer.parseInt(week), arr, timesPreWeek, stuNum);
                 times -= timesPreWeek;
             } else {
+                //余下的课时
                 plan = ScheduleUtils.ScheduleOneWeek(Integer.parseInt(week), arr, times, stuNum);
                 times = 0;
             }
             result.add(plan);
         }
         if (times != 0) {
-            System.out.println("排不满");
+            throw new RuntimeException("该课程排不满");
         }
 
         String resultOfJson = mapper.writeValueAsString(result);
         //将结果持久化到数据库
-        resultMapper.insert(new TResult(null, courseId, "result", resultOfJson, 'r'));
+        resultMapper.insert(new TResult(null, courseId, "result", resultOfJson, 'T'));
         return resultOfJson;
     }
 
 
     @Override
     public int addStuFreeTimeInfo(String account, Integer courseId, String json) {
-        TResult r = new TResult(null, courseId, account, json, 't');
+        TResult r = new TResult(null, courseId, account, json, 'S');
         resultMapper.insert(r);
         return r.getRId();
     }

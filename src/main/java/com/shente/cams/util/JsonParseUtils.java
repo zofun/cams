@@ -32,7 +32,7 @@ public class JsonParseUtils {
                 List<String> freeTimeOfOneWeek = new LinkedList<>();
                 for (int j = 0; j < weekDays.size(); j++) {
                     JsonNode jcOfDay = weekDays.get(j);
-                    freeTimeOfOneWeek.add(jcOfDay.get("day") + ":" + jcOfDay.get("jc"));
+                    freeTimeOfOneWeek.add(jcOfDay.get("day").asText() + ":" + jcOfDay.get("jc").asText());
                 }
                 info.map.put(week.toString(), freeTimeOfOneWeek);
             }
